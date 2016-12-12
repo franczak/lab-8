@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Article {
+	StringBuilder builder=new StringBuilder();
 	private String article;
 	List<String> lines = new LinkedList<>();
 	
@@ -15,16 +16,28 @@ public class Article {
 		this.lines.add(line);
 	}
 	
-	public void read(){
-		StringBuilder builder = new StringBuilder();
-		System.out.print(article);
-		for(String line : lines){
-			builder.append(line).append("\n");										
-			System.out.print(line);
+	public String read(){
+		builder.append(article).append("/n");
+		System.out.println(article);
+		for(String line : lines){									
+			System.out.println(line);
+			builder.append(line).append("/n");
 		}
+		return builder.toString();
 	}
 	
 	public void mergeWord(){
-		//£¹czy s³owo, które zosta³o podzielone myœlnikiem. 
+		 String buffer = null;
+	        for (int i = 0; i < lines.size(); i++){
+	            String line = lines.get(i);
+	            if(buffer!=null){
+	                lines.set(i, buffer + line);
+	                buffer = null;
+	            }
+	            if(line.charAt(line.length()-1)=='-'){
+	                buffer = line.substring(line.lastIndexOf(" ")+1, line.length()-1);
+	                lines.set(i, line.substring(0,line.lastIndexOf(" ")));
+	            }
+	        }
 	}
 }

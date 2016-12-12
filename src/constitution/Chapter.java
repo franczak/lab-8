@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Chapter {
+	StringBuilder builder=new StringBuilder();
 	List<Article> articles = new LinkedList<>();
-	List<String> lines = new LinkedList();
+	List<String> lines = new LinkedList<>();
 	String chapter;
 	
 	public Chapter(String chapter){
@@ -20,7 +21,16 @@ public class Chapter {
 		this.articles.add(article);
 	}
 	
-	public void read(){
-		//Czyta caly rozdzial. 
+	public String read(){
+		System.out.println(chapter);
+		builder.append(chapter).append("/n");
+		for(String line : lines){
+			System.out.println(line);
+			builder.append(line).append("/n");
+		}
+		for(Article article : articles){
+			builder.append(article.read());
+		}
+		return builder.toString();
 	}
 }
